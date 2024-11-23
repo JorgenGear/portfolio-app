@@ -7,11 +7,12 @@ interface TimelineItemProps {
     title: string
     company: string
     date: string
+    location?: string
     description: string[]
     delay?: number
 }
 
-export default function TimelineItem({ title, company, date, description, delay = 0 }: TimelineItemProps) {
+export default function TimelineItem({ title, company, date, location, description, delay = 0 }: TimelineItemProps) {
     const ref = useRef<HTMLDivElement>(null)
     const { scrollYProgress } = useScroll({
         target: ref,
@@ -36,6 +37,12 @@ export default function TimelineItem({ title, company, date, description, delay 
                 <span>{company}</span>
                 <span>•</span>
                 <span>{date}</span>
+                {location && (
+                    <>
+                        <span>•</span>
+                        <span>{location}</span>
+                    </>
+                )}
             </div>
             <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1">
                 {description.map((item, index) => (

@@ -81,25 +81,37 @@ export default function Resume() {
 
                     <div className="space-y-8">
                         <TimelineItem
-                            title="Senior Data Analyst"
-                            company="Company Name"
-                            date="2020 - Present"
+                            title="Co-Owner/Business Analyst"
+                            company="Jorgensen Outfitters"
+                            date="Present"
+                            location="Logan, Utah"
                             description={[
-                                "Led data visualization projects using D3.js and Tableau",
-                                "Developed predictive models using Python and scikit-learn",
-                                "Improved data processing efficiency by 40%"
+                                "Manage all aspects of an online retail business, including finances, product selection, website design, marketing, and business strategy",
+                                "Track and analyze SEO, financial, and operational metrics to drive strategic decisions and improve performance"
                             ]}
                         />
                         <TimelineItem
-                            title="Data Scientist"
-                            company="Previous Company"
-                            date="2018 - 2020"
+                            title="Product Manager (Intern)"
+                            company="FamilySearch"
+                            date="Present"
+                            location="Lehi, Utah"
                             description={[
-                                "Implemented machine learning models for customer segmentation",
-                                "Created automated reporting dashboards",
-                                "Mentored junior analysts"
+                                "Manage two product teams with a PM mentor",
+                                "Analyze data surrounding the products and present to major stakeholders",
+                                "Organize user testing efforts to improve existing product features",
+                                "Managed efforts of web developers, UX designers, and QA engineers"
                             ]}
-                            delay={0.2}
+                        />
+                        <TimelineItem
+                            title="Co-Owner/Manager"
+                            company="Q&R Box Gardens"
+                            date="2018 - 2021"
+                            location="Springville, Utah"
+                            description={[
+                                "Developed designs for various raised garden beds, which were constructed and sold",
+                                "Managed finances, material procurement, schedules, product development, production, marketing, sales",
+                                "Managed over 20 employees, including payroll, HR, OSHA compliance, and scheduling"
+                            ]}
                         />
                     </div>
                 </motion.section>
@@ -113,10 +125,14 @@ export default function Resume() {
 
                     <div className="space-y-8">
                         <div className="border-l-2 border-blue-600 pl-4">
-                            <h3 className="font-bold text-xl">BS in Computer Science</h3>
-                            <p className="text-gray-600 dark:text-gray-400">University Name • 2016 - 2020</p>
+                            <h3 className="font-bold text-xl">MS Management of Information Systems</h3>
+                            <p className="text-gray-600 dark:text-gray-400">Utah State University • Expected 2025</p>
+                        </div>
+                        <div className="border-l-2 border-blue-600 pl-4">
+                            <h3 className="font-bold text-xl">BS Technology Systems</h3>
+                            <p className="text-gray-600 dark:text-gray-400">Utah State University • 2021 - 2024</p>
                             <p className="mt-2 text-gray-700 dark:text-gray-300">
-                                Relevant coursework: Data Structures, Algorithms, Machine Learning
+                                Graduated Magna Cum Laude
                             </p>
                         </div>
                     </div>
@@ -130,41 +146,64 @@ export default function Resume() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {/* Programming Languages */}
                         <SkillCard
                             name="Python"
                             iconName="python"
                             level={90}
-                            description="Data analysis, ML models, automation scripts"
+                            description="Data analysis, ML models, Django development"
                         />
                         <SkillCard
-                            name="React"
-                            iconName="react"
+                            name="SQL"
+                            iconName="database"
                             level={85}
-                            description="Frontend development, component architecture"
+                            description="Database design, complex queries, MS SQL Server"
                         />
                         <SkillCard
-                            name="D3.js"
-                            iconName="d3"
-                            level={80}
-                            description="Interactive data visualizations"
-                        />
-                        <SkillCard
-                            name="TypeScript"
+                            name="TypeScript/JavaScript"
                             iconName="typescript"
-                            level={85}
-                            description="Type-safe JavaScript development"
-                        />
-                        <SkillCard
-                            name="Next.js"
-                            iconName="nextjs"
                             level={80}
-                            description="Full-stack React applications"
+                            description="React, Web development, API integration"
+                        />
+                        
+                        {/* Development Tools */}
+                        <SkillCard
+                            name="AWS & Cloud"
+                            iconName="aws"
+                            level={75}
+                            description="Cloud9, Cloud Architecture, Deployment"
                         />
                         <SkillCard
-                            name="Git"
+                            name="Version Control"
                             iconName="git"
                             level={85}
-                            description="Version control and collaboration"
+                            description="Git, GitHub, collaborative development"
+                        />
+                        <SkillCard
+                            name="Development Tools"
+                            iconName="tools"
+                            level={85}
+                            description="VS Code, Jupyter, SSMS, Oracle VM"
+                        />
+                        
+                        {/* Domain Knowledge */}
+                        <SkillCard
+                            name="Financial Markets"
+                            iconName="chart"
+                            level={85}
+                            description="Crypto, Equities, Market Analysis"
+                        />
+                        <SkillCard
+                            name="UI/UX Design"
+                            iconName="design"
+                            level={80}
+                            description="Adobe Suite, CAD, User Experience"
+                        />
+                        <SkillCard
+                            name="Web Development"
+                            iconName="web"
+                            level={85}
+                            description="HTML, CSS, React, Django, APIs"
                         />
                     </div>
                 </motion.section>

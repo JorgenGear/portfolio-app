@@ -7,13 +7,14 @@ import { IconType } from 'react-icons'
 // Lazy load icons
 const icons = {
     python: lazy(() => import('react-icons/di').then(mod => ({ default: mod.DiPython }))),
-    react: lazy(() => import('react-icons/di').then(mod => ({ default: mod.DiReact }))),
-    javascript: lazy(() => import('react-icons/di').then(mod => ({ default: mod.DiJavascript }))),
     typescript: lazy(() => import('react-icons/si').then(mod => ({ default: mod.SiTypescript }))),
-    nextjs: lazy(() => import('react-icons/tb').then(mod => ({ default: mod.TbBrandNextjs }))),
-    d3: lazy(() => import('react-icons/si').then(mod => ({ default: mod.SiD3Dotjs }))),
-    tableau: lazy(() => import('react-icons/si').then(mod => ({ default: mod.SiTableau }))),
+    database: lazy(() => import('react-icons/bi').then(mod => ({ default: mod.BiData }))),
+    aws: lazy(() => import('react-icons/fa').then(mod => ({ default: mod.FaAws }))),
     git: lazy(() => import('react-icons/di').then(mod => ({ default: mod.DiGit }))),
+    tools: lazy(() => import('react-icons/bi').then(mod => ({ default: mod.BiCodeBlock }))),
+    chart: lazy(() => import('react-icons/bi').then(mod => ({ default: mod.BiLineChart }))),
+    design: lazy(() => import('react-icons/md').then(mod => ({ default: mod.MdDesignServices }))),
+    web: lazy(() => import('react-icons/bi').then(mod => ({ default: mod.BiCode })))
 }
 
 interface SkillCardProps {
