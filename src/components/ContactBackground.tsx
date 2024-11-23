@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useRef, useEffect } from 'react'
 
 interface Point {
     x: number
@@ -24,6 +24,7 @@ export default function ContactBackground() {
         const ctx = context
 
         const resizeCanvas = () => {
+            if (!canvas) return
             const { width, height } = canvas.getBoundingClientRect()
             canvas.width = width * window.devicePixelRatio
             canvas.height = height * window.devicePixelRatio
@@ -65,6 +66,7 @@ export default function ContactBackground() {
         canvas.addEventListener('mousemove', handleMouseMove)
 
         function animate() {
+            if (!canvas) return
             ctx.fillStyle = 'rgba(15, 23, 42, 0.1)'
             ctx.fillRect(0, 0, canvas.width, canvas.height)
 
