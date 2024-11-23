@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { FaGithub, FaLinkedin } from 'react-icons/fa'
 
 const Footer = () => {
     const currentYear = new Date().getFullYear()
@@ -10,9 +11,9 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                     {/* About Section */}
                     <div>
-                        <h3 className="text-xl font-bold mb-4">Your Name</h3>
+                        <h3 className="text-xl font-bold mb-4">Jorge Jorgensen</h3>
                         <p className="text-gray-400">
-                            Data Analytics & Web Development Professional based in [Your Location]
+                            Data Analytics & Web Development Professional based in Logan, Utah
                         </p>
                     </div>
 
@@ -26,8 +27,8 @@ const Footer = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/data-viz" className="hover:text-white transition">
-                                    Data Visualization
+                                <Link href="/resume" className="hover:text-white transition">
+                                    Resume
                                 </Link>
                             </li>
                             <li>
@@ -38,31 +39,33 @@ const Footer = () => {
                         </ul>
                     </div>
 
-                    {/* Connect Section */}
+                    {/* Social Links */}
                     <div>
                         <h3 className="text-xl font-bold mb-4">Connect</h3>
                         <div className="flex space-x-4">
-                            {/* GitHub */}
                             <a
-                                href="https://github.com/yourusername"
+                                href="https://github.com/JorgenGear"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="hover:text-white transition"
-                                aria-label="GitHub"
+                                className="text-gray-400 hover:text-white transition"
                             >
-                                <svg
-                                    className="w-6 h-6"
-                                    fill="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"
-                                    />
-                                </svg>
+                                <FaGithub className="w-6 h-6" />
+                            </a>
+                            <a
+                                href="https://www.linkedin.com/in/rhett-jorgensen/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-400 hover:text-white transition"
+                            >
+                                <FaLinkedin className="w-6 h-6" />
                             </a>
                         </div>
                     </div>
+                </div>
+
+                {/* Copyright */}
+                <div className="text-center text-gray-500 text-sm">
+                    <p>&copy; {currentYear} Jorge Jorgensen. All rights reserved.</p>
                 </div>
             </div>
         </footer>

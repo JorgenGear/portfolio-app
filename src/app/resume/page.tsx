@@ -2,7 +2,7 @@
 
 import { Suspense, lazy } from 'react'
 import { motion } from 'framer-motion'
-import { FaBriefcase, FaGraduationCap, FaCode } from 'react-icons/fa'
+import { FaBriefcase, FaGraduationCap, FaCode, FaGithub, FaLinkedin } from 'react-icons/fa'
 import TimelineItem from '@/components/TimelineItem'
 import SkillCard from '@/components/SkillCard'
 import ResumeLoading from './loading'
@@ -23,22 +23,6 @@ const sectionVariants = {
 }
 
 export default function Resume() {
-    const handleDownloadPDF = async () => {
-        try {
-            const response = await fetch('/api/generate-pdf')
-            const blob = await response.blob()
-            const url = window.URL.createObjectURL(blob)
-            const link = document.createElement('a')
-            link.href = url
-            link.download = 'resume.pdf'
-            document.body.appendChild(link)
-            link.click()
-            document.body.removeChild(link)
-        } catch (error) {
-            console.error('Error downloading PDF:', error)
-        }
-    }
-
     return (
         <Suspense fallback={<ResumeLoading />}>
             <motion.div
@@ -51,22 +35,26 @@ export default function Resume() {
                 <motion.div variants={sectionVariants} className="mb-12 text-center">
                     <h1 className="text-4xl font-bold mb-4">Resume</h1>
                     <div className="flex justify-center gap-4">
-                        <motion.button
-                            onClick={handleDownloadPDF}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
-                        >
-                            Download PDF
-                        </motion.button>
                         <motion.a
-                            href="https://linkedin.com/in/yourprofile"
+                            href="https://github.com/JorgenGear"
                             target="_blank"
                             rel="noopener noreferrer"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="bg-gray-100 dark:bg-gray-800 px-6 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
+                            className="bg-gray-900 text-white px-6 py-2 rounded hover:bg-gray-800 flex items-center gap-2"
                         >
+                            <FaGithub className="w-5 h-5" />
+                            GitHub Profile
+                        </motion.a>
+                        <motion.a
+                            href="https://www.linkedin.com/in/rhett-jorgensen/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 flex items-center gap-2"
+                        >
+                            <FaLinkedin className="w-5 h-5" />
                             LinkedIn Profile
                         </motion.a>
                     </div>
@@ -80,17 +68,7 @@ export default function Resume() {
                     </div>
 
                     <div className="space-y-8">
-                        <TimelineItem
-                            title="Co-Owner/Business Analyst"
-                            company="Jorgensen Outfitters"
-                            date="Present"
-                            location="Logan, Utah"
-                            description={[
-                                "Manage all aspects of an online retail business, including finances, product selection, website design, marketing, and business strategy",
-                                "Track and analyze SEO, financial, and operational metrics to drive strategic decisions and improve performance"
-                            ]}
-                        />
-                        <TimelineItem
+                    <TimelineItem
                             title="Product Manager (Intern)"
                             company="FamilySearch"
                             date="Present"
@@ -100,6 +78,16 @@ export default function Resume() {
                                 "Analyze data surrounding the products and present to major stakeholders",
                                 "Organize user testing efforts to improve existing product features",
                                 "Managed efforts of web developers, UX designers, and QA engineers"
+                            ]}
+                        />
+                        <TimelineItem
+                            title="Co-Owner/Business Analyst"
+                            company="Jorgensen Outfitters"
+                            date="Present"
+                            location="Logan, Utah"
+                            description={[
+                                "Manage all aspects of an online retail business, including finances, product selection, website design, marketing, and business strategy",
+                                "Track and analyze SEO, financial, and operational metrics to drive strategic decisions and improve performance"
                             ]}
                         />
                         <TimelineItem
@@ -150,19 +138,19 @@ export default function Resume() {
                         <SkillCard
                             name="Python"
                             iconName="python"
-                            level={90}
+                            level={95}
                             description="Data analysis, ML models, Django development"
                         />
                         <SkillCard
                             name="SQL"
                             iconName="database"
-                            level={85}
+                            level={95}
                             description="Database design, complex queries, MS SQL Server"
                         />
                         <SkillCard
                             name="TypeScript/JavaScript"
                             iconName="typescript"
-                            level={80}
+                            level={70}
                             description="React, Web development, API integration"
                         />
                         
@@ -170,7 +158,7 @@ export default function Resume() {
                         <SkillCard
                             name="AWS & Cloud"
                             iconName="aws"
-                            level={75}
+                            level={70}
                             description="Cloud9, Cloud Architecture, Deployment"
                         />
                         <SkillCard
@@ -182,7 +170,7 @@ export default function Resume() {
                         <SkillCard
                             name="Development Tools"
                             iconName="tools"
-                            level={85}
+                            level={95}
                             description="VS Code, Jupyter, SSMS, Oracle VM"
                         />
                         
@@ -190,7 +178,7 @@ export default function Resume() {
                         <SkillCard
                             name="Financial Markets"
                             iconName="chart"
-                            level={85}
+                            level={75}
                             description="Crypto, Equities, Market Analysis"
                         />
                         <SkillCard
