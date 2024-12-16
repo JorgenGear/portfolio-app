@@ -5,8 +5,18 @@ import { projects } from '@/lib/data'
 import ProjectCard from '@/components/ProjectCard'
 import { motion } from 'framer-motion'
 
+const CATEGORIES = {
+    'all': 'All Projects',
+    'data-viz': 'Data Visualization',
+    'web-dev': 'Web Development',
+    'machine-learning': 'Machine Learning',
+    'finance': 'Financial Analysis'
+} as const
+
+type CategoryType = keyof typeof CATEGORIES
+
 export default function Projects() {
-    const [filter, setFilter] = useState<'all' | 'data-viz' | 'web-dev'>('all')
+    const [filter, setFilter] = useState<CategoryType>('all')
 
     const filteredProjects = projects.filter(project =>
         filter === 'all' ? true : project.category === filter
@@ -17,18 +27,18 @@ export default function Projects() {
             <h1 className="text-4xl font-bold mb-8">Projects</h1>
 
             {/* Filter Buttons */}
-            <div className="flex gap-4 mb-8">
-                {['all', 'data-viz', 'web-dev'].map((category) => (
+            <div className="flex flex-wrap gap-4 mb-8">
+                {Object.entries(CATEGORIES).map(([key, label]) => (
                     <button
-                        key={category}
-                        onClick={() => setFilter(category as any)}
-                        className={`px-4 py-2 rounded-lg ${
-                            filter === category
+                        key={key}
+                        onClick={() => setFilter(key as CategoryType)}
+                        className={`px-4 py-2 rounded-lg transition-colors ${
+                            filter === key
                                 ? 'bg-blue-600 text-white'
                                 : 'bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200'
                         }`}
                     >
-                        {category.charAt(0).toUpperCase() + category.slice(1)}
+                        {label}
                     </button>
                 ))}
             </div>

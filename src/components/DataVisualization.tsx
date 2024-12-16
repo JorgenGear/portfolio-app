@@ -92,9 +92,92 @@ export default function DataVisualization({ projectId }: DataVisualizationProps)
 function getMockData(projectId: number): VisualizationData {
     // Mock data for different project types
     switch (projectId) {
-        case 1: // Crypto Disequilibrium
-            const nodes = ['BTC', 'ETH', 'XRP', 'USDT', 'BNB']
+        case 4: // Investment Analysis Decision Tree
+            const nodes = ['Root', 'Tech?', 'Patents?', 'Funding>5M', 'Elites>3', 'IPO', 'Bankrupt', 'SoldHigh', 'SoldLow']
             const edges: [string, string, number][] = [
+                ['Root', 'Tech?', 1],
+                ['Tech?', 'Patents?', 0.7],
+                ['Tech?', 'Funding>5M', 0.3],
+                ['Patents?', 'Elites>3', 0.6],
+                ['Patents?', 'Bankrupt', 0.4],
+                ['Funding>5M', 'IPO', 0.5],
+                ['Funding>5M', 'SoldHigh', 0.5],
+                ['Elites>3', 'SoldHigh', 0.7],
+                ['Elites>3', 'SoldLow', 0.3]
+            ]
+
+            // Create tree visualization
+            const decisionTreeNodeTrace = {
+                x: nodes.map((_, i) => Math.cos(2 * Math.PI * i / nodes.length) * (i === 0 ? 0 : 1)),
+                y: nodes.map((_, i) => Math.sin(2 * Math.PI * i / nodes.length) * (i === 0 ? 0 : 1)),
+                mode: 'markers+text',
+                type: 'scatter',
+                name: 'Decision Nodes',
+                text: nodes,
+                textposition: 'top center',
+                hoverinfo: 'text',
+                marker: {
+                    size: 30,
+                    color: nodes.map(n => 
+                        n === 'IPO' ? '#10B981' :  // Green for IPO
+                        n === 'Bankrupt' ? '#EF4444' :  // Red for Bankrupt
+                        n === 'SoldHigh' ? '#3B82F6' :  // Blue for SoldHigh
+                        n === 'SoldLow' ? '#F59E0B' :  // Yellow for SoldLow
+                        '#6B7280'  // Gray for decision nodes
+                    )
+                }
+            }
+
+            const decisionTreeEdgeTraces = edges.map(([from, to, prob]) => {
+                const fromIdx = nodes.indexOf(from)
+                const toIdx = nodes.indexOf(to)
+                return {
+                    x: [
+                        Math.cos(2 * Math.PI * fromIdx / nodes.length) * (fromIdx === 0 ? 0 : 1),
+                        Math.cos(2 * Math.PI * toIdx / nodes.length) * (toIdx === 0 ? 0 : 1)
+                    ],
+                    y: [
+                        Math.sin(2 * Math.PI * fromIdx / nodes.length) * (fromIdx === 0 ? 0 : 1),
+                        Math.sin(2 * Math.PI * toIdx / nodes.length) * (toIdx === 0 ? 0 : 1)
+                    ],
+                    mode: 'lines+text',
+                    type: 'scatter',
+                    name: `${from}-${to}`,
+                    text: [null, (prob * 100).toFixed(0) + '%'],
+                    textposition: 'middle',
+                    line: { 
+                        width: 2,
+                        color: '#4B5563'
+                    },
+                    hoverinfo: 'text',
+                    hovertext: `Probability: ${(prob * 100).toFixed(0)}%`
+                }
+            })
+
+            return {
+                type: 'network',
+                data: [decisionTreeNodeTrace, ...decisionTreeEdgeTraces],
+                layout: {
+                    title: 'Decision Tree Structure',
+                    showlegend: false,
+                    xaxis: {
+                        showgrid: false,
+                        zeroline: false,
+                        showticklabels: false,
+                        range: [-1.5, 1.5]
+                    },
+                    yaxis: {
+                        showgrid: false,
+                        zeroline: false,
+                        showticklabels: false,
+                        range: [-1.5, 1.5]
+                    }
+                }
+            }
+
+        case 1: // Crypto Disequilibrium
+            const cryptoNodes = ['BTC', 'ETH', 'XRP', 'USDT', 'BNB']
+            const cryptoEdges: [string, string, number][] = [
                 ['BTC', 'ETH', 0.068],
                 ['ETH', 'XRP', 0.00042],
                 ['XRP', 'USDT', 0.52],
@@ -104,13 +187,13 @@ function getMockData(projectId: number): VisualizationData {
             ]
 
             // Create network visualization data
-            const nodeTrace = {
-                x: nodes.map((_, i) => Math.cos(2 * Math.PI * i / nodes.length)),
-                y: nodes.map((_, i) => Math.sin(2 * Math.PI * i / nodes.length)),
+            const cryptoNodeTrace = {
+                x: cryptoNodes.map((_, i) => Math.cos(2 * Math.PI * i / cryptoNodes.length)),
+                y: cryptoNodes.map((_, i) => Math.sin(2 * Math.PI * i / cryptoNodes.length)),
                 mode: 'markers+text',
                 type: 'scatter',
                 name: 'Cryptocurrencies',
-                text: nodes,
+                text: cryptoNodes,
                 textposition: 'top center',
                 hoverinfo: 'text',
                 marker: {
@@ -119,12 +202,12 @@ function getMockData(projectId: number): VisualizationData {
                 }
             }
 
-            const edgeTraces = edges.map(([from, to, rate]) => {
-                const fromIdx = nodes.indexOf(from)
-                const toIdx = nodes.indexOf(to)
+            const cryptoEdgeTraces = cryptoEdges.map(([from, to, rate]) => {
+                const fromIdx = cryptoNodes.indexOf(from)
+                const toIdx = cryptoNodes.indexOf(to)
                 return {
-                    x: [Math.cos(2 * Math.PI * fromIdx / nodes.length), Math.cos(2 * Math.PI * toIdx / nodes.length)],
-                    y: [Math.sin(2 * Math.PI * fromIdx / nodes.length), Math.sin(2 * Math.PI * toIdx / nodes.length)],
+                    x: [Math.cos(2 * Math.PI * fromIdx / cryptoNodes.length), Math.cos(2 * Math.PI * toIdx / cryptoNodes.length)],
+                    y: [Math.sin(2 * Math.PI * fromIdx / cryptoNodes.length), Math.sin(2 * Math.PI * toIdx / cryptoNodes.length)],
                     mode: 'lines+text',
                     type: 'scatter',
                     name: `${from}-${to}`,
@@ -141,7 +224,7 @@ function getMockData(projectId: number): VisualizationData {
 
             return {
                 type: 'network',
-                data: [nodeTrace, ...edgeTraces],
+                data: [cryptoNodeTrace, ...cryptoEdgeTraces],
                 layout: {
                     title: 'Cryptocurrency Exchange Network',
                     showlegend: false,
