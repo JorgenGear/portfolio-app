@@ -27,6 +27,151 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 7,
+    title: "Oraclios - AI-Powered Document Database",
+    description: "A sophisticated web application that enables users to create AI-queryable databases from uploaded files and media, featuring OpenAI integration, Supabase backend, and Google authentication.",
+    longDescription: `Oraclios is a cutting-edge web application that transforms traditional document storage into an intelligent, AI-powered knowledge base. Users can upload various types of files and media into customizable databases, then interact with their data through natural language queries powered by OpenAI's API.
+
+The system features a modern, responsive interface built with Next.js and TypeScript, implementing real-time file processing, secure authentication through Google OAuth, and robust data storage using Supabase. The application is hosted on Vercel, ensuring optimal performance and reliability.
+
+Key features include multiple database management, real-time file processing, AI-powered document analysis, and secure team collaboration capabilities. The system maintains high security standards with bank-grade encryption for sensitive data.`,
+    tags: ["Next.js", "TypeScript", "OpenAI API", "Supabase", "Google Auth", "Vercel", "React", "Tailwind CSS"],
+    imageUrl: "/images/oraclios.png",
+    githubUrl: "https://github.com/yourusername/oraclios",
+    liveUrl: "https://www.oraclios.com",
+    category: "web-dev",
+    featured: true,
+    technicalDetails: [
+      {
+        title: "Authentication System",
+        description: "Implemented secure authentication using Supabase Auth with Google OAuth integration, managing user sessions and database access permissions."
+      },
+      {
+        title: "File Management",
+        description: "Developed a robust file upload and storage system using Supabase Storage, with unique file paths and automatic metadata tracking."
+      },
+      {
+        title: "AI Integration",
+        description: "Integrated OpenAI's API for natural language processing of documents and intelligent query handling across multiple file types."
+      },
+      {
+        title: "Real-time Updates",
+        description: "Implemented real-time database and file updates using Supabase's real-time subscriptions and Next.js server components."
+      }
+    ],
+    codeSnippets: [
+      {
+        title: "File Upload Implementation",
+        language: "typescript",
+        code: `async function uploadFile(file: File, userId: string, databaseId: string) {
+    try {
+        const timestamp = Date.now()
+        const uniqueFilename = \`\${timestamp}-\${file.name}\`
+        const filePath = \`\${userId}/\${databaseId}/\${uniqueFilename}\`
+
+        // Upload to storage
+        const storageResponse = await supabase.storage
+            .from('files')
+            .upload(filePath, file, {
+                cacheControl: '3600',
+                upsert: false
+            })
+
+        if (storageResponse.error) throw storageResponse.error
+
+        // Create file record
+        const { data: fileRecord, error: fileError } = await supabase
+            .from('files')
+            .insert({
+                user_id: userId,
+                database_id: databaseId,
+                name: file.name,
+                size_bytes: file.size,
+                type: file.type,
+                storage_path: storageResponse.data.path
+            })
+            .select()
+            .single()
+
+        if (fileError) {
+            await supabase.storage
+                .from('files')
+                .remove([filePath])
+            throw fileError
+        }
+
+        return { success: true, fileId: fileRecord.id }
+    } catch (error) {
+        return { success: false, error }
+    }
+}`
+      },
+      {
+        title: "Database Management API",
+        language: "typescript",
+        code: `export async function PUT(
+    request: NextRequest,
+    context: RouteParams
+) {
+    const { params } = context;
+    const resolvedParams = await params;
+    const supabase = createRouteHandlerClient({ cookies });
+
+    try {
+        const { name, description, icon } = await request.json();
+        const { data: { session } } = await supabase.auth.getSession();
+
+        if (!session) {
+            return NextResponse.json(
+                { error: 'Unauthorized' },
+                { status: 401 }
+            );
+        }
+
+        const { data, error } = await supabase
+            .from('databases')
+            .update({
+                name,
+                description,
+                icon,
+                updated_at: new Date().toISOString()
+            })
+            .eq('id', resolvedParams.id)
+            .eq('user_id', session.user.id)
+            .select()
+            .single();
+
+        if (error) throw error;
+
+        return NextResponse.json(data);
+    } catch (error) {
+        return NextResponse.json(
+            { error: 'Error updating database' },
+            { status: 500 }
+        );
+    }
+}`
+      }
+    ],
+    challenges: [
+      {
+        title: "Real-time File Processing",
+        description: "Managing concurrent file uploads and processing while maintaining system performance.",
+        solution: "Implemented a queuing system with progress tracking and implemented efficient file chunking for large uploads."
+      },
+      {
+        title: "AI Query Optimization",
+        description: "Optimizing AI query processing to handle large documents and multiple file types efficiently.",
+        solution: "Developed a caching system for frequently accessed queries and implemented document chunking for improved AI processing."
+      },
+      {
+        title: "Database Security",
+        description: "Ensuring secure access to sensitive documents while maintaining easy sharing capabilities.",
+        solution: "Implemented row-level security in Supabase and created a granular permissions system for database and file access."
+      }
+    ]
+  },
+  {
     id: 1,
     title: "Crypto Disequilibrium Detector",
     description: "An automated system that detects and exploits price discrepancies across cryptocurrency trading pairs using graph theory and real-time market data.",
