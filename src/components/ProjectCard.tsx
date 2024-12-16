@@ -5,8 +5,10 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { FiGithub, FiExternalLink } from 'react-icons/fi'
 import TiltCard from './TiltCard'
+import { useRouter } from 'next/navigation'
 
 interface ProjectCardProps {
+    id: number
     title: string
     description: string
     imageUrl: string
@@ -16,6 +18,7 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({
+    id,
     title,
     description,
     imageUrl,
@@ -23,6 +26,16 @@ export default function ProjectCard({
     liveUrl,
     githubUrl
 }: ProjectCardProps) {
+    const router = useRouter()
+
+    const handleCardClick = (e: React.MouseEvent) => {
+        // If the click is on the action buttons, don't navigate
+        if ((e.target as HTMLElement).closest('.action-buttons')) {
+            return
+        }
+        router.push(`/projects/${id}`)
+    }
+
     return (
         <TiltCard>
             <motion.div
@@ -34,8 +47,9 @@ export default function ProjectCard({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="group relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg"
+                className="group relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg cursor-pointer"
                 whileTap={{ scale: 0.98 }}
+                onClick={handleCardClick}
             >
                 <div className="relative h-48 md:h-64">
                     <Image
@@ -45,22 +59,26 @@ export default function ProjectCard({
                         className="object-cover transition-transform group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="absolute bottom-4 left-4 right-4 flex justify-end gap-3">
+                        <div className="absolute bottom-4 left-4 right-4 flex justify-end gap-3 action-buttons">
                             {githubUrl && (
-                                <Link 
+                                <a 
                                     href={githubUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className="p-2 bg-white/20 rounded-full backdrop-blur-sm hover:bg-white/30 transition"
                                 >
                                     <FiGithub className="w-5 h-5 text-white" />
-                                </Link>
+                                </a>
                             )}
                             {liveUrl && (
-                                <Link 
+                                <a 
                                     href={liveUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className="p-2 bg-white/20 rounded-full backdrop-blur-sm hover:bg-white/30 transition"
                                 >
                                     <FiExternalLink className="w-5 h-5 text-white" />
-                                </Link>
+                                </a>
                             )}
                         </div>
                     </div>

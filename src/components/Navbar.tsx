@@ -14,9 +14,6 @@ export default function Navbar() {
                         <Link href="/projects" className="hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">
                             Projects
                         </Link>
-                        <Link href="/games" className="hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">
-                            Fun
-                        </Link>
                         <Link href="/contact" className="hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">
                             Contact
                         </Link>

@@ -11,9 +11,9 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                     {/* About Section */}
                     <div>
-                        <h3 className="text-xl font-bold mb-4">Jorge Jorgensen</h3>
+                        <h3 className="text-xl font-bold mb-4">Rhett Jorgensen</h3>
                         <p className="text-gray-400">
-                            Data Analytics & Web Development Professional based in Logan, Utah
+                            Data Analytics & Product Development Professional based in Utah
                         </p>
                     </div>
 
@@ -65,7 +65,7 @@ const Footer = () => {
 
                 {/* Copyright */}
                 <div className="text-center text-gray-500 text-sm">
-                    <p>&copy; {currentYear} Jorge Jorgensen. All rights reserved.</p>
+                    <p>&copy; {currentYear} Rhett Jorgensen. All rights reserved.</p>
                 </div>
             </div>
         </footer>
