@@ -43,10 +43,28 @@ export default function Contact() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setIsSubmitting(true)
-        // Add your form submission logic here
-        await new Promise(resolve => setTimeout(resolve, 1500))
-        setIsSubmitting(false)
-        setIsSubmitted(true)
+
+        try {
+            const response = await fetch('https://formspree.io/f/mdkebdwp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formState),
+            })
+
+            if (response.ok) {
+                setIsSubmitted(true)
+                setFormState({ name: '', email: '', message: '' })
+            } else {
+                throw new Error('Form submission failed')
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error)
+            alert('There was an error submitting the form. Please try again.')
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     return (
@@ -108,7 +126,7 @@ export default function Contact() {
                             type="submit"
                             disabled={isSubmitting || isSubmitted}
                             className="w-full bg-blue-600 text-white py-4 rounded-lg font-medium 
-                                   disabled:opacity-70 relative overflow-hidden group"
+                                    disabled:opacity-70 relative overflow-hidden group"
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                         >
