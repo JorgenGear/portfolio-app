@@ -825,6 +825,112 @@ for card in player_cards:
         solution: "Developed a robust state management system using object-oriented principles to track cards, scores, and game outcomes."
       }
     ]
+  },
+  {
+    id: 8,
+    title: "Zilk - Local Deals & Rewards Platform",
+    description: "A modern platform connecting local businesses with customers through deals and interactive rewards, featuring NFC-based spin wheel rewards and location-based deal discovery.",
+    longDescription: `Zilk is an innovative platform that revolutionizes how local businesses connect with customers through deals and rewards. The platform features a unique NFC-based spin wheel mechanism that allows customers to access special rewards at strategic locations, driving foot traffic to local businesses.
+
+The system supports both web and mobile access, with a comprehensive business dashboard for managing deals, tracking analytics, and managing staff. The platform uses location-based services to show relevant deals within a 50-mile radius, making it easy for customers to discover local offers.
+
+Key features include NFC tag integration for interactive rewards, real-time deal management, comprehensive analytics, and a user-friendly interface for both customers and businesses. The platform is built with modern technologies and follows best practices for security and performance.`,
+    tags: ["Next.js", "TypeScript", "Supabase", "React Native", "NFC", "Location Services", "Vercel", "Expo"],
+    imageUrl: "/images/zilk.png",
+    githubUrl: "https://github.com/zilkdevteam/zilk-supa-verc",
+    liveUrl: "https://zilk.io",
+    category: "web-dev",
+    featured: true,
+    technicalDetails: [
+      {
+        title: "NFC Integration",
+        description: "Implemented NFC tag reading and processing for interactive rewards, allowing customers to access special deals through physical touchpoints at business locations."
+      },
+      {
+        title: "Location-Based Services",
+        description: "Developed a sophisticated location-based deal discovery system that shows relevant offers within a 50-mile radius, with real-time distance calculations and filtering."
+      },
+      {
+        title: "Business Dashboard",
+        description: "Created a comprehensive business management interface for deal creation, analytics tracking, staff management, and NFC tag configuration."
+      },
+      {
+        title: "Cross-Platform Development",
+        description: "Built a unified codebase supporting both web and mobile platforms using Next.js and React Native, with shared components and business logic."
+      }
+    ],
+    challenges: [
+      {
+        title: "NFC Implementation",
+        description: "Ensuring reliable NFC tag reading across different devices and operating systems while maintaining security.",
+        solution: "Implemented robust error handling and device-specific NFC reading protocols, with fallback options for devices without NFC support."
+      },
+      {
+        title: "Location Accuracy",
+        description: "Maintaining accurate location-based services while respecting user privacy and battery life.",
+        solution: "Developed a hybrid location system using both GPS and network-based positioning, with intelligent update frequency based on user movement."
+      },
+      {
+        title: "Cross-Platform Consistency",
+        description: "Ensuring consistent user experience across web and mobile platforms with shared codebase.",
+        solution: "Created a modular architecture with platform-specific components while maintaining shared business logic and state management."
+      }
+    ]
+  },
+  {
+    id: 9,
+    title: "Adobe Analytics Server Calls Monitor",
+    description: "A comprehensive Streamlit dashboard for monitoring and forecasting Adobe Analytics server call usage against a 15 billion call limit, featuring advanced forecasting models and interactive visualizations.",
+    longDescription: `This project is a sophisticated analytics dashboard that helps organizations monitor and manage their Adobe Analytics server call usage. The system tracks usage against a 15 billion call limit across multiple report suites, providing detailed insights and forecasts to prevent overages.
+
+The dashboard features multiple interactive tabs for different analysis perspectives:
+- Overview of current usage and projections
+- Monthly trend analysis with logistic regression
+- Billing cycle tracking
+- Advanced forecasting using both logistic regression and Holt-Winters models
+- Report suite distribution analysis
+
+Key features include real-time usage monitoring, automated forecasting, trend analysis, and optimization recommendations. The system helps organizations proactively manage their Adobe Analytics contract compliance while providing actionable insights for optimization.`,
+    tags: ["Python", "Streamlit", "Data Analysis", "Time Series Forecasting", "Plotly", "Pandas", "NumPy", "Data Visualization"],
+    imageUrl: "/images/adobe-analytics.png",
+    githubUrl: "https://github.com/yourusername/adobe-analytics-monitor",
+    category: "data-viz",
+    featured: true,
+    technicalDetails: [
+      {
+        title: "Advanced Forecasting Models",
+        description: "Implemented both logistic regression and Holt-Winters forecasting models to predict future server call volumes, with automatic model selection based on data patterns."
+      },
+      {
+        title: "Interactive Dashboard",
+        description: "Created a comprehensive Streamlit dashboard with multiple interactive tabs, real-time data visualization, and user-friendly metrics display."
+      },
+      {
+        title: "Data Analysis Pipeline",
+        description: "Developed a robust data processing pipeline that handles multiple CSV files, performs data cleaning, and calculates key metrics for monitoring and forecasting."
+      },
+      {
+        title: "Visualization System",
+        description: "Built an advanced visualization system using Plotly that includes interactive charts, progress indicators, and trend analysis with multiple forecasting methods."
+      }
+    ],
+    challenges: [
+      {
+        title: "Forecast Accuracy",
+        description: "Ensuring accurate forecasts across different usage patterns and seasonal variations.",
+        solution: "Implemented multiple forecasting models (logistic regression and Holt-Winters) with automatic model selection based on data characteristics and seasonal patterns."
+      },
+      {
+        title: "Data Integration",
+        description: "Handling multiple data sources and formats while maintaining data consistency.",
+        solution: "Created a robust data processing pipeline that standardizes data from different sources and handles edge cases in the data format."
+      },
+      {
+        title: "Performance Optimization",
+        description: "Managing large datasets and complex calculations while maintaining dashboard responsiveness.",
+        solution: "Implemented data caching, optimized calculations, and efficient data structures to ensure smooth performance even with large datasets."
+      }
+    ]
   }
 ]
 
