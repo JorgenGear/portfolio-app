@@ -18,8 +18,31 @@ interface PageProps {
 
 export default function ProjectPage({ params }: PageProps) {
     const resolvedParams = use(params)
+    const [isLoading, setIsLoading] = useState(true)
     const project = projects.find(p => p.id === parseInt(resolvedParams.id))
     
+    useEffect(() => {
+        // Preload images and data
+        const preloadAssets = async () => {
+            if (project) {
+                // Preload project image using browser's native Image
+                const img = new window.Image()
+                img.src = project.imageUrl
+                
+                // Preload any other assets
+                if (project.codeSnippets) {
+                    // Preload code snippets
+                    await Promise.all(project.codeSnippets.map(async (snippet) => {
+                        // Add any preloading logic for code snippets
+                    }))
+                }
+            }
+            setIsLoading(false)
+        }
+
+        preloadAssets()
+    }, [project])
+
     if (!project) {
         return (
             <div className="min-h-screen flex items-center justify-center">
@@ -28,8 +51,24 @@ export default function ProjectPage({ params }: PageProps) {
         )
     }
 
+    if (isLoading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="flex flex-col items-center gap-4">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                    <p className="text-gray-600 dark:text-gray-400">Loading project...</p>
+                </div>
+            </div>
+        )
+    }
+
     return (
-        <div className="min-h-screen py-12 bg-gray-50 dark:bg-gray-900">
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            className="min-h-screen py-12 bg-gray-50 dark:bg-gray-900"
+        >
             <div className="max-w-4xl mx-auto px-4">
                 {/* Back Button */}
                 <Link 
@@ -51,6 +90,7 @@ export default function ProjectPage({ params }: PageProps) {
                             alt={project.title}
                             fill
                             className="object-cover"
+                            priority
                         />
                     </div>
                     <div className="p-6">
@@ -185,6 +225,6 @@ export default function ProjectPage({ params }: PageProps) {
                     )}
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 } 

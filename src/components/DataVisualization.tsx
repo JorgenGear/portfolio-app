@@ -5,7 +5,14 @@ import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 
 // Dynamically import visualization libraries to reduce initial bundle size
-const Plot = dynamic(() => import('react-plotly.js'), { ssr: false })
+const Plot = dynamic(() => import('react-plotly.js'), { 
+    ssr: false,
+    loading: () => (
+        <div className="flex justify-center items-center h-64">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        </div>
+    )
+})
 
 interface DataVisualizationProps {
     projectId: number
@@ -23,11 +30,21 @@ export default function DataVisualization({ projectId }: DataVisualizationProps)
     const containerRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        // In a real application, you would fetch this data from your API
-        // For now, we'll use mock data based on the project ID
-        const mockData = getMockData(projectId)
-        setData(mockData)
-        setLoading(false)
+        // Preload the data
+        const loadData = async () => {
+            try {
+                // In a real application, you would fetch this data from your API
+                // For now, we'll use mock data based on the project ID
+                const mockData = getMockData(projectId)
+                setData(mockData)
+            } catch (error) {
+                console.error('Error loading visualization data:', error)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        loadData()
     }, [projectId])
 
     if (loading) {

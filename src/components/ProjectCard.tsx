@@ -61,24 +61,28 @@ export default function ProjectCard({
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
                         <div className="absolute bottom-4 left-4 right-4 flex justify-end gap-3 action-buttons">
                             {githubUrl && (
-                                <a 
-                                    href={githubUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                <button 
+                                    onClick={(e) => {
+                                        e.stopPropagation()
+                                        window.open(githubUrl, '_blank')
+                                    }}
                                     className="p-2 bg-white/20 rounded-full backdrop-blur-sm hover:bg-white/30 transition"
+                                    aria-label="View on GitHub"
                                 >
                                     <FiGithub className="w-5 h-5 text-white" />
-                                </a>
+                                </button>
                             )}
                             {liveUrl && (
-                                <a 
-                                    href={liveUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                <button 
+                                    onClick={(e) => {
+                                        e.stopPropagation()
+                                        window.open(liveUrl, '_blank')
+                                    }}
                                     className="p-2 bg-white/20 rounded-full backdrop-blur-sm hover:bg-white/30 transition"
+                                    aria-label="View live project"
                                 >
                                     <FiExternalLink className="w-5 h-5 text-white" />
-                                </a>
+                                </button>
                             )}
                         </div>
                     </div>
