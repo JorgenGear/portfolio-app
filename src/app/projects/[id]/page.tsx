@@ -1,13 +1,14 @@
 'use client'
 
+import { use, Suspense } from 'react'
 import { motion } from 'framer-motion'
-import { FiGithub, FiExternalLink } from 'react-icons/fi'
-import { projects } from '@/lib/data'
+import { FiArrowLeft, FiGithub, FiExternalLink } from 'react-icons/fi'
 import Link from 'next/link'
 import Image from 'next/image'
+import { projects } from '@/lib/data'
+import Loading from './loading'
 import CodeBlock from '@/components/CodeBlock'
 import DataVisualization from '@/components/DataVisualization'
-import { use } from 'react'
 
 interface PageProps {
     params: Promise<{
@@ -15,32 +16,21 @@ interface PageProps {
     }>
 }
 
-export default function ProjectPage({ params }: PageProps) {
-    const resolvedParams = use(params)
-    const project = projects.find(p => p.id === parseInt(resolvedParams.id))
-
-    if (!project) {
-        return (
-            <div className="min-h-screen flex items-center justify-center">
-                <h1 className="text-2xl">Project not found</h1>
-            </div>
-        )
-    }
-
+function ProjectContent({ project }: { project: typeof projects[0] }) {
     return (
         <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
             className="min-h-screen py-12 bg-gray-50 dark:bg-gray-900"
         >
             <div className="max-w-4xl mx-auto px-4">
-                {/* Back Button */}
                 <Link 
                     href="/projects"
                     className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-8"
                 >
-                    <span className="mr-2">←</span> Back to Projects
+                    <FiArrowLeft className="mr-2" />
+                    Back to Projects
                 </Link>
 
                 {/* Project Header */}
@@ -56,6 +46,10 @@ export default function ProjectPage({ params }: PageProps) {
                             fill
                             className="object-cover"
                             priority
+                            onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.style.display = 'none';
+                            }}
                         />
                     </div>
                     <div className="p-6">
@@ -114,22 +108,24 @@ export default function ProjectPage({ params }: PageProps) {
                     </motion.section>
 
                     {/* Technical Details */}
-                    <motion.section
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3 }}
-                        className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg"
-                    >
-                        <h2 className="text-2xl font-bold mb-4">Technical Details</h2>
-                        <div className="space-y-4">
-                            {project.technicalDetails?.map((detail, index) => (
-                                <div key={index}>
-                                    <h3 className="font-semibold text-lg mb-2">{detail.title}</h3>
-                                    <p className="text-gray-600 dark:text-gray-300">{detail.description}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </motion.section>
+                    {project.technicalDetails && (
+                        <motion.section
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3 }}
+                            className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg"
+                        >
+                            <h2 className="text-2xl font-bold mb-4">Technical Details</h2>
+                            <div className="space-y-4">
+                                {project.technicalDetails.map((detail, index) => (
+                                    <div key={index}>
+                                        <h3 className="font-semibold text-lg mb-2">{detail.title}</h3>
+                                        <p className="text-gray-600 dark:text-gray-300">{detail.description}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </motion.section>
+                    )}
 
                     {/* Project Type Specific Content */}
                     {project.category === 'data-viz' && (
@@ -191,5 +187,29 @@ export default function ProjectPage({ params }: PageProps) {
                 </div>
             </div>
         </motion.div>
+    )
+}
+
+export default function ProjectPage({ params }: PageProps) {
+    const { id } = use(params)
+    const project = projects.find(p => p.id === parseInt(id))
+
+    if (!project) {
+        return (
+            <div className="min-h-screen py-12 bg-gray-50 dark:bg-gray-900">
+                <div className="max-w-4xl mx-auto px-4">
+                    <h1 className="text-4xl font-bold mb-4">Project not found</h1>
+                    <Link href="/projects" className="text-blue-600 hover:underline">
+                        Back to projects
+                    </Link>
+                </div>
+            </div>
+        )
+    }
+
+    return (
+        <Suspense fallback={<Loading />}>
+            <ProjectContent project={project} />
+        </Suspense>
     )
 } 

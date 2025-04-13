@@ -1,0 +1,262 @@
+---
+title: "Building My Developer Portfolio: A Journey in Next.js and Modern Web Development"
+date: "2024-03-20"
+author: "Rhett Jorgensen"
+description: "A detailed account of building a modern developer portfolio using Next.js, TypeScript, and modern web development practices."
+tags: ["portfolio", "Next.js", "TypeScript", "web development", "personal branding"]
+---
+
+# Building My Developer Portfolio: A Journey in Next.js and Modern Web Development
+
+Creating a developer portfolio is more than just showcasing your work—it's an opportunity to demonstrate your skills, thought process, and attention to detail. In this post, I'll share my journey of building my portfolio using Next.js and modern web development practices.
+
+## 1. Planning and Design
+
+Before writing any code, it's crucial to plan your portfolio:
+
+### Key Considerations
+- Target audience
+- Content structure
+- Visual design
+- Technical requirements
+- Performance goals
+
+### Design Principles
+- Clean and professional look
+- Easy navigation
+- Mobile responsiveness
+- Fast loading times
+- Accessibility compliance
+
+## 2. Technology Stack
+
+Choosing the right technology stack is crucial:
+
+### Core Technologies
+- **Next.js**: For server-side rendering and routing
+- **TypeScript**: For type safety and better development experience
+- **Tailwind CSS**: For utility-first styling
+- **MDX**: For blog content
+- **Framer Motion**: For animations
+
+```typescript
+// Example project configuration
+{
+    "name": "portfolio",
+    "version": "1.0.0",
+    "dependencies": {
+        "next": "^14.0.0",
+        "react": "^18.0.0",
+        "typescript": "^5.0.0",
+        "tailwindcss": "^3.0.0",
+        "framer-motion": "^10.0.0"
+    }
+}
+```
+
+## 3. Project Structure
+
+A well-organized project structure is essential:
+
+```
+src/
+├── app/
+│   ├── (routes)/
+│   │   ├── about/
+│   │   ├── blog/
+│   │   ├── contact/
+│   │   ├── projects/
+│   │   └── page.tsx
+│   ├── components/
+│   ├── lib/
+│   └── styles/
+```
+
+## 4. Key Features Implementation
+
+Let's look at some key features:
+
+### Responsive Navigation
+
+```typescript
+// Example navigation component
+const Navigation = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    
+    return (
+        <nav className="fixed w-full bg-white/80 backdrop-blur-sm">
+            <div className="container mx-auto px-4">
+                <div className="flex justify-between items-center h-16">
+                    <Link href="/" className="text-xl font-bold">
+                        Portfolio
+                    </Link>
+                    
+                    <button
+                        className="md:hidden"
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
+                        <MenuIcon />
+                    </button>
+                    
+                    <div className={`${isOpen ? 'block' : 'hidden'} md:block`}>
+                        <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
+                            <li><Link href="/about">About</Link></li>
+                            <li><Link href="/projects">Projects</Link></li>
+                            <li><Link href="/blog">Blog</Link></li>
+                            <li><Link href="/contact">Contact</Link></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    );
+};
+```
+
+### Project Showcase
+
+```typescript
+// Example project card component
+interface ProjectCardProps {
+    project: {
+        id: number;
+        title: string;
+        description: string;
+        image: string;
+        tags: string[];
+    };
+}
+
+const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
+    return (
+        <motion.div
+            whileHover={{ scale: 1.02 }}
+            className="bg-white rounded-lg shadow-lg overflow-hidden"
+        >
+            <Image
+                src={project.image}
+                alt={project.title}
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover"
+            />
+            <div className="p-4">
+                <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+                <p className="text-gray-600 mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                        <span
+                            key={tag}
+                            className="px-2 py-1 bg-gray-100 rounded-full text-sm"
+                        >
+                            {tag}
+                        </span>
+                    ))}
+                </div>
+            </div>
+        </motion.div>
+    );
+};
+```
+
+### Blog Integration
+
+```typescript
+// Example blog post component
+interface BlogPostProps {
+    post: {
+        title: string;
+        date: string;
+        excerpt: string;
+        slug: string;
+    };
+}
+
+const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
+    return (
+        <article className="bg-white rounded-lg shadow-lg p-6">
+            <h2 className="text-2xl font-bold mb-2">{post.title}</h2>
+            <time className="text-gray-500">{post.date}</time>
+            <p className="mt-4 text-gray-600">{post.excerpt}</p>
+            <Link
+                href={`/blog/${post.slug}`}
+                className="inline-block mt-4 text-blue-500 hover:text-blue-700"
+            >
+                Read more →
+            </Link>
+        </article>
+    );
+};
+```
+
+## 5. Performance Optimization
+
+Performance is crucial for a portfolio:
+
+### Image Optimization
+- Use Next.js Image component
+- Implement proper image sizing
+- Use WebP format when possible
+- Implement lazy loading
+
+### Code Optimization
+- Implement code splitting
+- Use dynamic imports
+- Minimize bundle size
+- Implement proper caching
+
+```typescript
+// Example dynamic import
+const HeavyComponent = dynamic(() => import('./HeavyComponent'), {
+    loading: () => <LoadingSpinner />,
+});
+```
+
+## 6. Deployment
+
+Deploying a Next.js application:
+
+### Deployment Options
+- Vercel (recommended for Next.js)
+- Netlify
+- AWS Amplify
+- Custom server
+
+### Deployment Process
+1. Set up environment variables
+2. Configure build settings
+3. Set up custom domain
+4. Implement proper caching
+5. Set up monitoring
+
+## 7. Continuous Improvement
+
+A portfolio is never truly finished:
+
+### Regular Updates
+- Add new projects
+- Update skills
+- Write new blog posts
+- Improve performance
+- Enhance accessibility
+
+### Analytics and Feedback
+- Implement analytics
+- Gather user feedback
+- Monitor performance
+- Track user behavior
+
+## Conclusion
+
+Building a developer portfolio is a continuous journey that requires:
+
+1. **Planning**: Clear vision and structure
+2. **Technology**: Right tools for the job
+3. **Implementation**: Clean and maintainable code
+4. **Performance**: Fast and efficient
+5. **Content**: Regular updates and improvements
+6. **Feedback**: Continuous improvement based on analytics
+
+Remember that your portfolio is a living document of your skills and growth. Keep it updated, experiment with new technologies, and always strive to improve.
+
+Would you like to learn more about any specific aspect of building a developer portfolio? Feel free to reach out with questions or suggestions for future topics! 
