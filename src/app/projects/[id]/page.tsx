@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { FiGithub, FiExternalLink } from 'react-icons/fi'
 import { projects } from '@/lib/data'
@@ -18,46 +17,12 @@ interface PageProps {
 
 export default function ProjectPage({ params }: PageProps) {
     const resolvedParams = use(params)
-    const [isLoading, setIsLoading] = useState(true)
     const project = projects.find(p => p.id === parseInt(resolvedParams.id))
-    
-    useEffect(() => {
-        // Preload images and data
-        const preloadAssets = async () => {
-            if (project) {
-                // Preload project image using browser's native Image
-                const img = new window.Image()
-                img.src = project.imageUrl
-                
-                // Preload any other assets
-                if (project.codeSnippets) {
-                    // Preload code snippets
-                    await Promise.all(project.codeSnippets.map(async (snippet) => {
-                        // Add any preloading logic for code snippets
-                    }))
-                }
-            }
-            setIsLoading(false)
-        }
-
-        preloadAssets()
-    }, [project])
 
     if (!project) {
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <h1 className="text-2xl">Project not found</h1>
-            </div>
-        )
-    }
-
-    if (isLoading) {
-        return (
-            <div className="min-h-screen flex items-center justify-center">
-                <div className="flex flex-col items-center gap-4">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                    <p className="text-gray-600 dark:text-gray-400">Loading project...</p>
-                </div>
             </div>
         )
     }
