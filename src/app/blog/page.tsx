@@ -1,39 +1,82 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import AnimatedSection from '@/components/AnimatedSection'
-import BlogPost from '@/components/BlogPost'
+import Link from 'next/link'
+import { FiArrowRight } from 'react-icons/fi'
 
-// This would typically come from your CMS or MDX files
 const blogPosts = [
-  {
-    title: "Building My Developer Portfolio: A Journey in Next.js and Modern Web Development",
-    date: "March 20, 2024",
-    readTime: "8 min read",
-    excerpt: "Join me on my journey of building a modern portfolio website using Next.js, and learn about the technologies and decisions that shaped this project.",
-    slug: "building-my-portfolio",
-    imageUrl: "/images/blog/portfolio.jpg",
-    tags: ["Next.js", "Web Development", "Portfolio", "Job Search"]
-  }
+    {
+        slug: 'nextjs-15-updates',
+        title: 'Next.js 15: What\'s New and How to Upgrade',
+        date: 'April 13, 2024',
+        readTime: '5 min read',
+        excerpt: 'A comprehensive guide to the latest features and breaking changes in Next.js 15.',
+        tags: ['Next.js', 'React', 'Web Development']
+    },
+    {
+        slug: 'building-portfolio',
+        title: 'Building a Modern Portfolio with Next.js',
+        date: 'April 12, 2024',
+        readTime: '8 min read',
+        excerpt: 'Learn how to create a stunning portfolio website using Next.js, Tailwind CSS, and Framer Motion.',
+        tags: ['Next.js', 'Tailwind CSS', 'Portfolio']
+    }
 ]
 
 export default function Blog() {
-  return (
-    <div className="min-h-screen py-12 bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-5xl mx-auto px-4">
-        <AnimatedSection className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Blog</h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400">
-            Insights, tutorials, and updates from my journey in tech
-          </p>
-        </AnimatedSection>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogPosts.map((post, index) => (
-            <BlogPost key={index} {...post} />
-          ))}
-        </div>
-      </div>
-    </div>
-  )
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="max-w-4xl mx-auto px-4 py-12"
+        >
+            <h1 className="text-4xl font-bold mb-8">Blog</h1>
+            
+            <div className="space-y-8">
+                {blogPosts.map((post) => (
+                    <motion.article
+                        key={post.slug}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow"
+                    >
+                        <Link href={`/blog/${post.slug}`}>
+                            <h2 className="text-2xl font-bold mb-2 hover:text-blue-600 dark:hover:text-blue-400">
+                                {post.title}
+                            </h2>
+                        </Link>
+                        
+                        <div className="flex items-center gap-4 text-gray-600 dark:text-gray-400 mb-4">
+                            <span>{post.date}</span>
+                            <span>•</span>
+                            <span>{post.readTime}</span>
+                        </div>
+                        
+                        <p className="text-gray-700 dark:text-gray-300 mb-4">
+                            {post.excerpt}
+                        </p>
+                        
+                        <div className="flex flex-wrap gap-2 mb-4">
+                            {post.tags.map((tag) => (
+                                <span
+                                    key={tag}
+                                    className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm"
+                                >
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
+                        
+                        <Link
+                            href={`/blog/${post.slug}`}
+                            className="inline-flex items-center text-blue-600 hover:text-blue-700"
+                        >
+                            Read more
+                            <FiArrowRight className="ml-2" />
+                        </Link>
+                    </motion.article>
+                ))}
+            </div>
+        </motion.div>
+    )
 } 
