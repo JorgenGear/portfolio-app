@@ -189,19 +189,19 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
                   h1: ({ children }) => <h1 className="text-4xl font-bold mb-8 mt-12">{children}</h1>,
                   h2: ({ children }) => <h2 className="text-3xl font-bold mb-6 mt-10">{children}</h2>,
                   h3: ({ children }) => <h3 className="text-2xl font-bold mb-4 mt-8">{children}</h3>,
-                  p: ({ children }) => <p className="mb-6 leading-relaxed">{children}</p>,
-                  ul: ({ children }) => <ul className="list-disc pl-6 mb-6 space-y-2">{children}</ul>,
-                  ol: ({ children }) => <ol className="list-decimal pl-6 mb-6 space-y-2">{children}</ol>,
+                  p: ({ children }) => <p className="mb-6 leading-relaxed text-gray-700 dark:text-gray-300">{children}</p>,
+                  ul: ({ children }) => <ul className="list-disc pl-6 mb-6 space-y-2 text-gray-700 dark:text-gray-300">{children}</ul>,
+                  ol: ({ children }) => <ol className="list-decimal pl-6 mb-6 space-y-2 text-gray-700 dark:text-gray-300">{children}</ol>,
                   li: ({ children }) => <li className="mb-2">{children}</li>,
-                  strong: ({ children }) => <strong className="font-bold">{children}</strong>,
+                  strong: ({ children }) => <strong className="font-bold text-gray-900 dark:text-white">{children}</strong>,
                   em: ({ children }) => <em className="italic">{children}</em>,
                   blockquote: ({ children }) => (
-                    <blockquote className="border-l-4 border-blue-500 pl-4 italic my-6">
+                    <blockquote className="border-l-4 border-blue-500 pl-4 italic my-6 text-gray-700 dark:text-gray-300">
                       {children}
                     </blockquote>
                   ),
                   code: ({ children }) => (
-                    <code className="bg-gray-100 dark:bg-gray-800 rounded px-2 py-1 text-sm">
+                    <code className="bg-gray-100 dark:bg-gray-800 rounded px-2 py-1 text-sm font-mono">
                       {children}
                     </code>
                   ),
